@@ -26,11 +26,7 @@ public class form_event extends Application {
     @Override
     public void start(Stage primaryStage) {
     	Rectangle2D rect=Screen.getPrimary().getVisualBounds();
-    	double widthlistner = rect.getWidth();//widthlistner=800;
-    	double heightlistner = rect.getHeight();	//heightlistner=800;
-    	double buttonwidth=(widthlistner-40)/6;
-    	double buttonheight=(heightlistner-40)/6;
-    	Pane root = new Pane();
+    	StackPane root = new StackPane();
 
         textarea = new TextArea();
     
@@ -454,9 +450,8 @@ public class form_event extends Application {
                 }
             }
         });
-        root.getChildren().add(equal);
         
-        Scene scene = new Scene(root,widthlistner,heightlistner);
+        Scene scene = new Scene(root);
      
         primaryStage.setTitle(" Calculator");
      
