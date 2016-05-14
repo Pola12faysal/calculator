@@ -13,7 +13,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-public class form_event extends Application {	
+public class form_event extends Application {
+	
     TextArea textarea;
     String display = "";
     String call_process = "";
@@ -88,6 +89,56 @@ public class form_event extends Application {
             }
         });
         root.getChildren().add(nine);
+
+        Button division = new Button("/");
+     
+        division.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                char ch = display.charAt(display.length() - 1);
+                if (Character.isDigit(ch) || ch == ')') {
+                  display += "/";
+                   call_process += "/";
+                    textarea.setText(display);
+                    isSquare = false;
+                }
+            }
+        });
+        root.getChildren().add(division);
+
+        Button delete = new Button("←");
+    
+        delete.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                char ch = ' ';
+                if (!display.equals("")) {
+                    ch = display.charAt(display.length() - 1);
+                }
+           
+                String str = textarea.getText();
+                String newStr = str.substring(0, display.length() - 1);
+              display = newStr;
+               call_process =call_process.substring(0,call_process.length() - 1);
+                textarea.setText(display);
+            }
+        });
+        root.getChildren().add(delete);
+
+        Button reset = new Button("reset");
+       
+        reset.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                textarea.setText("");
+              display = "";
+               call_process = "";
+               
+            }
+        });
+
+        root.getChildren().add(reset);
+
         Button four = new Button("4");
     
         four.setOnAction(new EventHandler<ActionEvent>() {
@@ -141,6 +192,58 @@ public class form_event extends Application {
             }
         });
         root.getChildren().add(six);
+
+        Button multiplication = new Button("*");
+     
+        multiplication.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                char ch = display.charAt(display.length() - 1);
+                if (Character.isDigit(ch) || ch == ')') {
+                  display += "*";
+                   call_process += "*";
+                    textarea.setText(display);
+                    isSquare = false;
+                }
+            }
+        });
+        root.getChildren().add(multiplication);
+
+        Button openPar = new Button("(");
+      
+        openPar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                char ch1 = ' ';
+                if (!display.equals("")) {
+                    ch1 = display.charAt(display.length() - 1);
+                }
+                if (((!Character.isDigit(ch1) && isSquare == false) && ch1 != ')') || ch1 == ' ') {
+                  display += "(";
+                   call_process += "(";
+                    textarea.setText(display);
+                    isOpen = true;
+                  countOpen++;
+                }
+            }
+        });
+        root.getChildren().add(openPar);
+
+        Button closePar = new Button(")");
+      
+        closePar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (isOpen) {
+                  display += ")";
+                   call_process += ")";
+                    textarea.setText(display);
+                    countClose++;
+                }
+            }
+        });
+        root.getChildren().add(closePar);
+
         Button one = new Button("1");
        
         one.setOnAction(new EventHandler<ActionEvent>() {
@@ -197,6 +300,66 @@ public class form_event extends Application {
 
         });
         root.getChildren().add(three);
+
+        Button minus = new Button("-");
+      
+        minus.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+              display += "-";
+               call_process += "-";
+                textarea.setText(display);
+                isSquare = false;
+               }
+            }
+        );
+        root.getChildren().add(minus);
+
+        Button square = new Button("X^2");
+       
+        square.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                char lastChar = display.charAt(display.length() - 1);
+                if (Character.isDigit(lastChar)) {
+                    String number = "";
+                    String swapNumber = "";
+                    String str = textarea.getText();
+                    for (int i = str.length() - 1; i >= 0; i--) {
+                        char ch = str.charAt(i);
+                        if (Character.isDigit(ch)) {
+                            number += ch;
+                        } else {
+                            break;
+                        }
+                    }
+                    for (int i = number.length() - 1; i >= 0; i--) {
+                        char ch = number.charAt(i);
+                        swapNumber += ch;
+                    }
+                   call_process += "*" + swapNumber;
+                  display += "^2";
+                    textarea.setText(display);
+                    isSquare = true;
+                }
+            }
+        });
+        root.getChildren().add(square);
+
+        Button squareRoot = new Button("√");
+      
+        squareRoot.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	textarea.setText(textarea.getText()+"√");
+
+              display+="√";
+              call_process +="√";
+            	
+            }
+        });
+        root.getChildren().add(squareRoot);
+
         Button zero = new Button("0");
       
         zero.setOnAction(new EventHandler<ActionEvent>() {
@@ -235,8 +398,65 @@ public class form_event extends Application {
 
             }
         });
-        root.getChildren().add(point);        
-        Scene scene = new Scene(root);
+        root.getChildren().add(point);
+
+        Button mod = new Button("%");
+       
+        mod.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+              display += "%";
+               call_process += "%";
+                textarea.setText(display);
+       
+            }
+        });
+        root.getChildren().add(mod);
+
+        Button add = new Button("+");
+      
+        add.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                char ch = display.charAt(display.length() - 1);
+                if (Character.isDigit(ch) || ch == ')') {
+                  display += "+";
+                   call_process += "+";
+                    textarea.setText(display);
+                    isSquare = false;
+                }
+            }
+        });
+        root.getChildren().add(add);
+
+        Button equal = new Button("=");
+      
+        equal.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (countClose != countOpen) {
+                    textarea.setText("error expression");
+                  display = "";
+                   call_process = "";
+                } else {
+
+                    process ev = new process();
+                    try {
+						 call_process = ev.brackets( call_process);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                    textarea.setText( call_process);
+                  display = "";
+                   call_process = "";
+                }
+            }
+        });
+        root.getChildren().add(equal);
+        
+        Scene scene = new Scene(root,widthlistner,heightlistner);
      
         primaryStage.setTitle(" Calculator");
      
