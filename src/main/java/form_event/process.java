@@ -1,4 +1,4 @@
-package application;
+package main.java.form_event;
 
 import java.math.*;
 import java.util.*;
